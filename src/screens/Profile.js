@@ -1,10 +1,51 @@
-import {View, Text, Image,TextInput, TouchableOpacity} from 'react-native';
-import React from 'react';
+import {View, Text, Image, TextInput, TouchableOpacity} from 'react-native';
+import React, {useState, useEffect} from 'react';
 import PressBack from '../components/PressBack';
 import styles from '../styles/globalStyles';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import axios from 'axios';
+import {
+  AuthKey,
+  AuthPassword,
+  BACKEND_URL,
+  SIMPLE_URL,
+} from '../helper/baseUrl';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Profile = () => {
+  const [data, setData] = useState('');
+
+  useEffect(() => {
+    const getData = async () => {
+      const val = await AsyncStorage.getItem('ActiveUserId');
+
+      try {
+        axios
+          .post(
+            BACKEND_URL + 'getdeluser',
+            {
+              id: val,
+            },
+            {
+              headers: {
+                authkey: AuthKey,
+                secretkey: AuthPassword,
+              },
+            },
+          )
+          .then(acc => {
+            setData(acc.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getData();
+  }, []);
+
   return (
     <View style={styles.ScreenBack}>
       <PressBack title="Profile" />
@@ -21,11 +62,9 @@ const Profile = () => {
         <View>
           <Image
             style={styles.profilePic}
-            source={{
-              uri: 'https://media.gettyimages.com/photos/portrait-of-confident-pizza-delivery-man-against-gray-background-picture-id552151097?s=612x612',
-            }}
+            source={require("../assets/img/delivery_boy_pic.jpg")}
           />
-          <AntDesign
+          {/* <AntDesign
             style={{
               position: 'absolute',
 
@@ -42,56 +81,41 @@ const Profile = () => {
             name="camera"
             size={20}
             color="white"
+          /> */}
+        </View>
+
+        <View style={{marginTop: 30}}>
+          <TextInput
+            editable={false}
+            value={data.name}
+            placeholder="  Enter Your Full Name"
+            style={styles.basicInput}
           />
+          <View style={{marginVertical: 10}}></View>
+          <TextInput
+            editable={false}
+            value={data.contact}
+            placeholder="  Enter Your Number"
+            style={styles.basicInput}
+          />
+          <View style={{marginVertical: 10}}></View>
+          <TextInput
+            editable={false}
+            value={data.email}
+            placeholder="  Enter Your Email Address"
+            style={styles.basicInput}
+          />
+          <View style={{marginVertical: 10}}></View>
+          <TextInput
+            editable={false}
+            value={data.address}
+            placeholder="  Enter Your Address"
+            style={styles.basicInput}
+          />
+          <TouchableOpacity>
+            {/* <Text style={styles.button2}>Save</Text> */}
+          </TouchableOpacity>
         </View>
-
-
-
-        <View style={{marginTop:30}}>
-
-
-        <TextInput placeholder='  Enter Your Full Name'   style={styles.basicInput}   />
-        <View style={{marginVertical:10}}></View>
-        <TextInput placeholder='  Enter Your Number'   style={styles.basicInput}   />
-        <View style={{marginVertical:10}}></View>
-        <TextInput placeholder='  Enter Your Email Address'   style={styles.basicInput}   />
-        <View style={{marginVertical:10}}></View>
-        <TextInput placeholder='  Enter Your Address'   style={styles.basicInput}   />
-            <TouchableOpacity>
-        <Text style={styles.button2}>Save</Text>
-            </TouchableOpacity>
-
-
-
-
-
-        </View>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       </View>
     </View>
   );

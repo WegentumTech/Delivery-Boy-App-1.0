@@ -18,7 +18,7 @@ const NewOrders = () => {
         }}>
         New Orders
       </Text>
-      <TouchableOpacity onPress={()=>navigation.navigate("SingleOrderDetailed")}  activeOpacity={1}>
+      <TouchableOpacity onPress={()=>navigation.navigate("SingleOrderAssign Myself")}  activeOpacity={1}>
       <View
         style={{
           flexDirection: 'row',
@@ -88,10 +88,10 @@ const NewOrders = () => {
               padding: 6,
               borderRadius: 5,
               marginTop: 10,
-              marginRight: 120,
+              marginRight: 80,
               textAlign: 'center',
             }}>
-            Detailed
+            Assign Myself
           </Text>
         </View>
       </View>
@@ -166,10 +166,10 @@ const NewOrders = () => {
               padding: 6,
               borderRadius: 5,
               marginTop: 10,
-              marginRight: 120,
+              marginRight: 80,
               textAlign: 'center',
             }}>
-            Detailed
+            Assign Myself
           </Text>
         </View>
       </View>
@@ -244,10 +244,10 @@ const NewOrders = () => {
               padding: 6,
               borderRadius: 5,
               marginTop: 10,
-              marginRight: 120,
+              marginRight: 80,
               textAlign: 'center',
             }}>
-            Detailed
+            Assign Myself
           </Text>
         </View>
       </View>

@@ -59,6 +59,7 @@ const styles = StyleSheet.create({
     borderStyle:"solid",
     marginHorizontal:30,
     borderRadius:10,
+    color:"#9c9c9c"
 
   },
   button2:{

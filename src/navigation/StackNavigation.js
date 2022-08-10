@@ -10,6 +10,9 @@ import OrderHistory from '../screens/OrderHistory';
 import Profile from '../screens/Profile';
 import DrawerNavigation from './DrawerNavigation';
 import SingleOrderDetailed from '../screens/Dynamic/SingleOrderDetailed';
+import CompletedDelivery from '../screens/Subscreens/CompletedDelivery';
+import PendingDelivery from '../screens/Subscreens/PendingDelivery';
+import TotalReviews from '../screens/Subscreens/TotalReviews';
 const Stack = createStackNavigator();
 
 function StackNavigation() {
@@ -23,6 +26,9 @@ function StackNavigation() {
       <Stack.Screen name="ExtendedDashboard" component={ExtendedDashboard} />
       <Stack.Screen name="Notification" component={Notification} />
       <Stack.Screen name="SingleOrderDetailed" component={SingleOrderDetailed} />
+      <Stack.Screen name="CompletedDelivery" component={CompletedDelivery} />
+      <Stack.Screen name="PendingDelivery" component={PendingDelivery} />
+      <Stack.Screen name="TotalReviews" component={TotalReviews} />
     </Stack.Navigator>
   );
 }

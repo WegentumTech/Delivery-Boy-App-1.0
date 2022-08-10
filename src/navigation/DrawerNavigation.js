@@ -10,6 +10,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Help from '../screens/Help';
 import Logout from '../screens/Logout';
+import QRScanner from '../screens/QRScanner';
 
 const Drawer = createDrawerNavigator();
 
@@ -48,6 +49,24 @@ function DrawerNavigation() {
         }}
         name="HomeScreen"
         component={Home}
+      />
+      <Drawer.Screen
+        options={{
+          drawerIcon: ({color}) => (
+            <MaterialIcons
+              style={{
+                backgroundColor: '#FF8626',
+                padding: 5,
+                borderRadius: 100,
+              }}
+              name="qr-code-scanner"
+              size={24}
+              color="white"
+            />
+          ),
+        }}
+        name="QRScanner"
+        component={QRScanner}
       />
       <Drawer.Screen
         options={{

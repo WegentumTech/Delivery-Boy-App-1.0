@@ -21,8 +21,7 @@ const MidSection = () => {
           borderRadius: 15,
         }}>
         <View style={{flexDirection: 'row', marginTop: 40}}>
-          <View
-            style={{
+          <TouchableOpacity onPress={()=>navigation.navigate("CompletedDelivery")}  activeOpacity={1} style={{
               flex: 1,
               backgroundColor: '#EFFBF9',
               padding: 20,
@@ -30,6 +29,9 @@ const MidSection = () => {
               borderRadius: 10,
               elevation: 2,
             }}>
+
+          <View
+            >
             <FontAwesome5
               style={{alignSelf: 'center'}}
               name="gift"
@@ -50,8 +52,8 @@ const MidSection = () => {
               85
             </Text>
           </View>
-          <View
-            style={{
+          </TouchableOpacity >
+          <TouchableOpacity  onPress={()=>navigation.navigate("PendingDelivery")}  activeOpacity={1} style={{
               flex: 1,
               backgroundColor: '#FDF9EE',
               padding: 20,
@@ -59,6 +61,9 @@ const MidSection = () => {
               borderRadius: 10,
               elevation: 2,
             }}>
+
+          <View
+           >
             <MaterialCommunityIcons
               style={{alignSelf: 'center'}}
               name="truck-delivery"
@@ -79,11 +84,11 @@ const MidSection = () => {
               11
             </Text>
           </View>
+          </TouchableOpacity>
         </View>
 
         <View style={{flexDirection: 'row', marginTop: 30}}>
-          <View
-            style={{
+          <TouchableOpacity activeOpacity={1}  style={{
               flex: 1,
               backgroundColor: '#FCEBF1',
               padding: 20,
@@ -91,6 +96,8 @@ const MidSection = () => {
               borderRadius: 10,
               elevation: 2,
             }}>
+          <View
+           >
             <MaterialCommunityIcons
               style={{alignSelf: 'center'}}
               name="truck-delivery"
@@ -111,8 +118,10 @@ const MidSection = () => {
               13
             </Text>
           </View>
-          <View
-            style={{
+
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={()=>navigation.navigate("TotalReviews")}  activeOpacity={1} style={{
               flex: 1,
               backgroundColor: '#F0F5FB',
               padding: 20,
@@ -120,6 +129,9 @@ const MidSection = () => {
               borderRadius: 10,
               elevation: 2,
             }}>
+
+          <View
+            >
             <MaterialIcons
               style={{alignSelf: 'center'}}
               name="rate-review"
@@ -140,6 +152,7 @@ const MidSection = () => {
               51
             </Text>
           </View>
+          </TouchableOpacity>
         </View>
         <View style={{marginTop: 10}}>
           <TouchableOpacity onPress={()=>navigation.navigate("ExtendedDashboard")}>
