@@ -13,13 +13,14 @@ const VerifyOtp = () => {
 
 
   console.log(route.params.otp);
+  console.log(route.params.enteredMail);
 
 
   const letsCheckIt = () =>{
 
     if (username.username == route.params.otp) {
 
-      navigation.navigate('EnterNewPassword')
+      navigation.navigate('EnterNewPassword',{enteredMail:route.params.enteredMail})
       
     }else{
       setMessage("Entered OTP Is Wrong")

@@ -4,6 +4,7 @@ import styles from '../../styles/globalStyles';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useNavigation} from '@react-navigation/native';
 import axios from 'axios';
+import {useRoute} from '@react-navigation/native';
 import {
   AuthKey,
   AuthPassword,
@@ -16,6 +17,10 @@ const EnterNewPassword = () => {
   const [username, setUsername] = useState('');
   const [username2, setUsername2] = useState('');
   const [message, setMessage] = useState('');
+  const route = useRoute();
+  console.log(route.params.enteredMail);
+
+
 
   const handleCheckLogin = () => {
     console.log(username.username);
@@ -37,7 +42,7 @@ const EnterNewPassword = () => {
           BACKEND_URL + 'updatepassword',
           {
             password: username.username,
-            username: 'SWADEB1',
+            username: route.params.enteredMail,
           },
           {
             headers: {
@@ -47,9 +52,9 @@ const EnterNewPassword = () => {
           },
         )
         .then(acc => {
-          if (acc.data.status === true) {
+          
             navigation.navigate('Login');
-          }
+          
         })
         .catch(err => {
           console.log(err);

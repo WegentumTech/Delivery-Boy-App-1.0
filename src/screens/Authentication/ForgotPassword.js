@@ -38,7 +38,7 @@ const ForgotPassword = () => {
           if (acc.data.verification === false) {
             setMessage('This Account Does Not Exist');
           } else {
-            navigation.navigate('VerifyOtp', {otp: acc.data.otp});
+            navigation.navigate('VerifyOtp', {otp: acc.data.otp,enteredMail:username.username});
             console.log(acc.data.otp);
           }
         })
@@ -81,6 +81,7 @@ const ForgotPassword = () => {
             Enter Your Registered Email Or Number
           </Text>
         </View>
+
 
         <Text style={{textAlign: 'center',color:"red",fontWeight:"bold",marginTop:10,marginBottom:10}}>{message}</Text>
 
