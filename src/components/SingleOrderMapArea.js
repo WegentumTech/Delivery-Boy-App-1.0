@@ -15,6 +15,7 @@ import Entypo from 'react-native-vector-icons/dist/Entypo';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import Feather from 'react-native-vector-icons/dist/Feather';
+import {useRoute} from '@react-navigation/native';
 
 const SingleOrderMapArea = () => {
     const [countdown, setCountdown] = useState(5);
@@ -22,7 +23,8 @@ const SingleOrderMapArea = () => {
   const toggleSwitch = () => setIsEnabled(previousState => !previousState);
   const [modalVisible, setModalVisible] = useState(false);
   const [markAsDelivered, setMarkAsDelivered] = useState(false);
-  
+  const route = useRoute();
+  console.log(route.params.billingName);
   
 
   const handleNo = () => {
@@ -160,7 +162,7 @@ const SingleOrderMapArea = () => {
             marginTop: 15,
             fontWeight: 'bold',
           }}>
-          Kumar Nitesh
+        {route.params.billingName}
         </Text>
         <View style={{marginLeft: 15, marginRight: 15}}>
           <Text style={{color: '#565656', marginTop: 5}}>
@@ -170,7 +172,7 @@ const SingleOrderMapArea = () => {
               size={15}
               color="#FFBE79"
             />{' '}
-            Rathyatra, Mahmoorganj Rd Varanasi
+            {route.params.address}
           </Text>
           <Text style={{color: '#565656', marginTop: 5}}>
             <AntDesign
@@ -179,7 +181,7 @@ const SingleOrderMapArea = () => {
               size={15}
               color="#FFBE79"
             />{' '}
-            21/07/2022
+          {route.params.date}
           </Text>
           <Text style={{color: '#565656', marginTop: 5}}>
             <Ionicons
@@ -188,7 +190,7 @@ const SingleOrderMapArea = () => {
               size={15}
               color="#FFBE79"
             />{' '}
-            +91 6393344720
+          {route.params.contactNumber}
           </Text>
 
           <View style={{flexDirection: 'row'}}>
@@ -199,7 +201,7 @@ const SingleOrderMapArea = () => {
                 size={15}
                 color="#FFBE79"
               />{' '}
-              Cash On Delivery
+             {route.params.stausMethod}
             </Text>
             <View style={{flex: 1}}>
               {markAsDelivered ? (

@@ -13,6 +13,8 @@ import SingleOrderDetailed from '../screens/Dynamic/SingleOrderDetailed';
 import CompletedDelivery from '../screens/Subscreens/CompletedDelivery';
 import PendingDelivery from '../screens/Subscreens/PendingDelivery';
 import TotalReviews from '../screens/Subscreens/TotalReviews';
+import CompleteMyOrders from '../screens/Detailed/CompleteMyOrders';
+import CompleteNewOrders from '../screens/Detailed/CompleteNewOrders';
 const Stack = createStackNavigator();
 
 function StackNavigation() {
@@ -29,6 +31,8 @@ function StackNavigation() {
       <Stack.Screen name="CompletedDelivery" component={CompletedDelivery} />
       <Stack.Screen name="PendingDelivery" component={PendingDelivery} />
       <Stack.Screen name="TotalReviews" component={TotalReviews} />
+      <Stack.Screen name="CompleteMyOrders" component={CompleteMyOrders} />
+      <Stack.Screen name="CompleteNewOrders" component={CompleteNewOrders} />
     </Stack.Navigator>
   );
 }
