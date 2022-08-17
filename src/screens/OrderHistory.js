@@ -1,888 +1,169 @@
-import { View, Text ,TouchableOpacity,Image,ScrollView} from 'react-native'
-import React from 'react'
-import PressBack from '../components/PressBack'
-import styles from '../styles/globalStyles'
+import {View, Text, TouchableOpacity, Image, ScrollView} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import PressBack from '../components/PressBack';
+import styles from '../styles/globalStyles';
 import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
+import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import {useNavigation} from '@react-navigation/native';
 
-
+import {
+  AuthKey,
+  AuthPassword,
+  BACKEND_URL,
+  SIMPLE_URL,
+} from '../helper/baseUrl';
 const OrderHistory = () => {
+  const [data, setData] = useState('');
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  const getData = async () => {
+    const val = await AsyncStorage.getItem('ActiveUserId');
+    try {
+      axios
+        .post(
+          BACKEND_URL + 'completedelivery',
+          {
+            delivery_boy_id: val,
+          },
+          {
+            headers: {
+              authkey: AuthKey,
+              secretkey: AuthPassword,
+            },
+          },
+        )
+        .then(acc => {
+          setData(acc.data);
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <ScrollView style={styles.ScreenBack}> 
-     <PressBack title="Order History" />
+    <ScrollView style={styles.ScreenBack}>
+      <PressBack title="Order History" />
 
+      <View style={{marginHorizontal: 20}}>
+        {data ? (
+          data.map(hit => {
+            return (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('SingleOrderDetailed', {
+                    billingName: hit.name,
+                    address: hit.address,
+                    date: hit.order_time,
+                    method: hit.order_time,
+                    status: hit.order_status,
+                    contactNumber: hit.contact,
+                    stausMethod: hit.payment_method,
+                    id:hit.orderid
 
-     <View style={{marginHorizontal: 20}}>
-      <Text
-        style={{
-          color: 'black',
-          fontWeight: 'bold',
-          marginTop: 10,
-          fontSize: 16,
-        }}>
-      All Delivery
-      </Text>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
+                  })
+                }
+                key={hit.orderid}
+                activeOpacity={1}>
+                <View
+                  style={{
+                    flexDirection: 'row',
+                    backgroundColor: 'white',
+                    elevation: 2,
+                    padding: 5,
+                    marginTop: 10,
+                    borderRadius: 5,
+                    marginBottom: 10,
+                  }}>
+                  <View style={{flex: 1}}>
+                    <Image
+                      style={{width: 130, height: 120, borderRadius: 10}}
+                      source={{
+                        uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
+                      }}
+                    />
+                  </View>
+                  <View style={{flex: 1.5}}>
+                    <Text
+                      style={{
+                        color: '#565656',
+                        fontSize: 15,
+                        fontWeight: 'bold',
+                        marginLeft: 10,
+                        marginBottom: 5,
+                      }}>
+                      {hit.name}
+                    </Text>
+                    <View style={{flexDirection: 'row'}}>
+                      <Ionicons
+                        name="location-sharp"
+                        size={15}
+                        color="#FFBE79"
+                      />
 
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
+                      <Text style={{fontSize: 10, color: '#565656'}}>
+                        {hit.address}
+                      </Text>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                      <AntDesign
+                        style={{marginLeft: 2, marginTop: 5}}
+                        name="clockcircle"
+                        size={10}
+                        color="#FFBE79"
+                      />
 
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
+                      <Text
+                        style={{fontSize: 10, color: '#565656', marginTop: 3}}>
+                        {' '}
+                       {hit.order_time}
+                      </Text>
+                    </View>
+                    <View style={{flexDirection: 'row'}}>
+                      <Ionicons
+                        style={{marginLeft: 2, marginTop: 5}}
+                        name="person"
+                        size={12}
+                        color="#FFBE79"
+                      />
 
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
+                      <Text
+                        style={{fontSize: 10, color: '#565656', marginTop: 5}}>
+                        {' '}
+                        {hit.payment_method}
+                      </Text>
+                    </View>
+                    <Text
+                      style={{
+                        backgroundColor: '#FFF2EE',
+                        color: 'black',
+                        padding: 6,
+                        borderRadius: 5,
+                        marginTop: 10,
+                        marginRight: 120,
+                        textAlign: 'center',
+                      }}>
+                      Detailed
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          })
+        ) : (
+          <></>
+        )}
       </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1}>
-      <View
-        style={{
-          flexDirection: 'row',
-          backgroundColor: 'white',
-          elevation: 2,
-          padding: 5,
-          marginTop: 10,
-          borderRadius: 5,
-          marginBottom:10
-        }}>
-        <View style={{flex: 1}}>
-          <Image
-            style={{width: 130, height: 120, borderRadius: 10}}
-            source={{
-              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-            }}
-          />
-        </View>
-        <View style={{flex: 1.5}}>
-          <Text
-            style={{
-              color: '#565656',
-              fontSize: 15,
-              fontWeight: 'bold',
-              marginLeft: 10,
-              marginBottom: 5,
-            }}>
-            Handi Paneer
-          </Text>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-            <Text style={{fontSize: 10, color: '#565656'}}>
-              Satsang Nagar Colony Aktha Varanasi
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <AntDesign
-              style={{marginLeft: 2, marginTop: 5}}
-              name="clockcircle"
-              size={10}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-              {' '}
-              21/07/2022
-            </Text>
-          </View>
-          <View style={{flexDirection: 'row'}}>
-            <Ionicons
-              style={{marginLeft: 2, marginTop: 5}}
-              name="person"
-              size={12}
-              color="#FFBE79"
-            />
-
-            <Text style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-              {' '}
-              Kumar Nitesh
-            </Text>
-          </View>
-          <Text
-            style={{
-              backgroundColor: '#FFF2EE',
-              color: 'black',
-              padding: 6,
-              borderRadius: 5,
-              marginTop: 10,
-              marginRight: 120,
-              textAlign: 'center',
-            }}>
-            Detailed
-          </Text>
-        </View>
-      </View>
-      </TouchableOpacity>
-    </View>
     </ScrollView>
-  )
-}
+  );
+};
 
-export default OrderHistory
+export default OrderHistory;

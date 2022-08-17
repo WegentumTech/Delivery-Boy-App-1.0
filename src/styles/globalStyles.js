@@ -30,7 +30,8 @@ const styles = StyleSheet.create({
     borderRadius:30,
     backgroundColor:"white",
     elevation:2,
-    color:"#FF8626"
+    color:"#FF8626",
+    padding:10
   },
   enterButton:{
     textAlign:"center",

@@ -1,0 +1,33 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "src/assets/img/delivery.png",
+      "sha1": "2fb9b00d9169cd787687ca32f54be8db957313d7"
+    },
+    {
+      "path": "src/assets/img/delivery_boy_pic.jpg",
+      "sha1": "7ad539aeb44f136f3c08b9663a588ddb2cc8548b"
+    },
+    {
+      "path": "src/assets/img/enter_otp.png",
+      "sha1": "32b02047136e32f28eefb32a79119da149aac094"
+    },
+    {
+      "path": "src/assets/img/forgot_password.png",
+      "sha1": "65e5c9aa356440c209e7bb9afc783832ac7985f2"
+    },
+    {
+      "path": "src/assets/img/gmap.png",
+      "sha1": "d1446b9df5d129052d0e1f00b82a3f11660cd284"
+    },
+    {
+      "path": "src/assets/img/location.jpg",
+      "sha1": "343772b7b2adeab1eccb74d8c98fa03246c98844"
+    },
+    {
+      "path": "src/assets/img/resetpassword.png",
+      "sha1": "ce986ecc1ddd5e469cd8d1fbe2576fa889623bba"
+    }
+  ]
+}

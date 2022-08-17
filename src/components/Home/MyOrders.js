@@ -12,15 +12,13 @@ import {
 } from '../../helper/baseUrl';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-
 const MyOrders = () => {
   const navigation = useNavigation();
   const [datas, setDatas] = useState('');
 
   useEffect(() => {
-    const getData = async() =>{
-      const val = await AsyncStorage.getItem("ActiveUserId")
-
+    const getData = async () => {
+      const val = await AsyncStorage.getItem('ActiveUserId');
 
       try {
         axios
@@ -45,45 +43,58 @@ const MyOrders = () => {
       } catch (error) {
         console.log(error);
       }
-
-
-    }
-    getData()
+    };
+    getData();
   }, []);
 
   return (
     <View style={{marginHorizontal: 20}}>
-      <View style={{flexDirection:"row"}}>
+      <View style={{flexDirection: 'row'}}>
+        <Text
+          style={{
+            color: 'black',
+            fontWeight: 'bold',
+            marginTop: 10,
+            fontSize: 16,
+            flex: 1,
+          }}>
+          My Orders
+        </Text>
+        <Text
+          onPress={() => navigation.navigate('CompleteMyOrders')}
+          style={{
+            color: 'black',
+            fontWeight: 'bold',
+            marginTop: 10,
+            fontSize: 16,
+            textAlign: 'right',
+            flex: 1
+            
+          }}>
+            <Text >
 
-      <Text
-        style={{
-          color: 'black',
-          fontWeight: 'bold',
-          marginTop: 10,
-          fontSize: 16,
-          flex:1
-        }}>
-        My Orders
-      </Text>
-      <Text
-      onPress={()=>navigation.navigate("CompleteMyOrders")}
-        style={{
-          color: 'black',
-          fontWeight: 'bold',
-          marginTop: 10,
-          fontSize: 16,
-          textAlign:"right",
-          flex:1
-        }}>
-        {"All >"}
-      </Text>
-          </View>
+          {'All >'}
+            </Text>
+        </Text>
+      </View>
       {datas ? (
         datas.slice(0, 5).map(hit => {
           return (
             <TouchableOpacity
               key={hit.orderid}
-              onPress={() => navigation.navigate('SingleOrderDetailed',{billingName:hit.name,address:hit.address,date:hit.order_time,method:hit.order_time,status:hit.order_status,contactNumber:hit.contact,stausMethod:hit.payment_method})}
+              onPress={() =>
+                navigation.navigate('SingleOrderDetailed', {
+                  billingName: hit.name,
+                  address: hit.address,
+                  date: hit.order_time,
+                  method: hit.order_time,
+                  status: hit.order_status,
+                  contactNumber: hit.contact,
+                  stausMethod: hit.payment_method,
+                  id:hit.orderid,
+                  
+                })
+              }
               activeOpacity={1}>
               <View
                 style={{

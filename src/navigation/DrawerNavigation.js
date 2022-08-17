@@ -11,6 +11,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import Help from '../screens/Help';
 import Logout from '../screens/Logout';
 import QRScanner from '../screens/QRScanner';
+import Transaction from '../screens/Transaction';
 
 const Drawer = createDrawerNavigator();
 
@@ -108,7 +109,7 @@ function DrawerNavigation() {
         name="OrderHistory"
         component={OrderHistory}
       />
-      <Drawer.Screen
+      {/* <Drawer.Screen
         options={{
           swipeEnabled: false,
           gestureEnabled: false,
@@ -127,7 +128,7 @@ function DrawerNavigation() {
         }}
         name="Help"
         component={Help}
-      />
+      /> */}
       <Drawer.Screen
         options={{
           swipeEnabled: false,
@@ -147,6 +148,26 @@ function DrawerNavigation() {
         }}
         name="Logout"
         component={Logout}
+      />
+      <Drawer.Screen
+        options={{
+          swipeEnabled: false,
+          gestureEnabled: false,
+          drawerIcon: ({color}) => (
+            <MaterialIcons
+              style={{
+                backgroundColor: '#FF8626',
+                padding: 5,
+                borderRadius: 100,
+              }}
+              name="logout"
+              size={24}
+              color="white"
+            />
+          ),
+        }}
+        name="Transaction"
+        component={Transaction}
       />
     </Drawer.Navigator>
   );

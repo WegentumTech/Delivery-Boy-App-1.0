@@ -14,6 +14,13 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-AwesomeProject-AwesomeProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-AwesomeProject-AwesomeProjectTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		E9D06EA3D9BC41BE808C8930 /* delivery.png in Resources */ = {isa = PBXBuildFile; fileRef = 54CFA6E8A16B4996BC6E806D /* delivery.png */; };
+		32EF4AEA9C1B4C51BE491D10 /* delivery_boy_pic.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38FFA3B150CC40A3AB6086BA /* delivery_boy_pic.jpg */; };
+		9E54E89BA4DD48659F4F4728 /* enter_otp.png in Resources */ = {isa = PBXBuildFile; fileRef = E6D4266D6E9E4A4F997229E5 /* enter_otp.png */; };
+		0E47B7A39EE8438383BAB0C9 /* forgot_password.png in Resources */ = {isa = PBXBuildFile; fileRef = 8FBB368AC3B24719923A6663 /* forgot_password.png */; };
+		70268B68DF754B4BBE433409 /* gmap.png in Resources */ = {isa = PBXBuildFile; fileRef = 92D5E62DEF69471EB9BA93D6 /* gmap.png */; };
+		79F2925D70D94790966A98A0 /* location.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 614265E5C504486C9E7730D8 /* location.jpg */; };
+		3F43A43959FD485583545733 /* resetpassword.png in Resources */ = {isa = PBXBuildFile; fileRef = 53E16B1D61BC43DC9743CE51 /* resetpassword.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +51,13 @@
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = AwesomeProject/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-AwesomeProject-AwesomeProjectTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-AwesomeProject-AwesomeProjectTests.release.xcconfig"; path = "Target Support Files/Pods-AwesomeProject-AwesomeProjectTests/Pods-AwesomeProject-AwesomeProjectTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		54CFA6E8A16B4996BC6E806D /* delivery.png */ = {isa = PBXFileReference; name = "delivery.png"; path = "../src/assets/img/delivery.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		38FFA3B150CC40A3AB6086BA /* delivery_boy_pic.jpg */ = {isa = PBXFileReference; name = "delivery_boy_pic.jpg"; path = "../src/assets/img/delivery_boy_pic.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		E6D4266D6E9E4A4F997229E5 /* enter_otp.png */ = {isa = PBXFileReference; name = "enter_otp.png"; path = "../src/assets/img/enter_otp.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		8FBB368AC3B24719923A6663 /* forgot_password.png */ = {isa = PBXFileReference; name = "forgot_password.png"; path = "../src/assets/img/forgot_password.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		92D5E62DEF69471EB9BA93D6 /* gmap.png */ = {isa = PBXFileReference; name = "gmap.png"; path = "../src/assets/img/gmap.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		614265E5C504486C9E7730D8 /* location.jpg */ = {isa = PBXFileReference; name = "location.jpg"; path = "../src/assets/img/location.jpg"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
+		53E16B1D61BC43DC9743CE51 /* resetpassword.png */ = {isa = PBXFileReference; name = "resetpassword.png"; path = "../src/assets/img/resetpassword.png"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +136,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				370F7A059DCE413A99861B37 /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -147,6 +162,21 @@
 			);
 			path = Pods;
 			sourceTree = "<group>";
+		};
+		370F7A059DCE413A99861B37 /* Resources */ = {
+			isa = "PBXGroup";
+			children = (
+				54CFA6E8A16B4996BC6E806D /* delivery.png */,
+				38FFA3B150CC40A3AB6086BA /* delivery_boy_pic.jpg */,
+				E6D4266D6E9E4A4F997229E5 /* enter_otp.png */,
+				8FBB368AC3B24719923A6663 /* forgot_password.png */,
+				92D5E62DEF69471EB9BA93D6 /* gmap.png */,
+				614265E5C504486C9E7730D8 /* location.jpg */,
+				53E16B1D61BC43DC9743CE51 /* resetpassword.png */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+			path = "";
 		};
 /* End PBXGroup section */
 
@@ -244,6 +274,13 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				E9D06EA3D9BC41BE808C8930 /* delivery.png in Resources */,
+				32EF4AEA9C1B4C51BE491D10 /* delivery_boy_pic.jpg in Resources */,
+				9E54E89BA4DD48659F4F4728 /* enter_otp.png in Resources */,
+				0E47B7A39EE8438383BAB0C9 /* forgot_password.png in Resources */,
+				70268B68DF754B4BBE433409 /* gmap.png in Resources */,
+				79F2925D70D94790966A98A0 /* location.jpg in Resources */,
+				3F43A43959FD485583545733 /* resetpassword.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
