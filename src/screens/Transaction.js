@@ -73,7 +73,7 @@ const Transaction = () => {
                   ₹ {datas.main.wallet}
                 </Text>
                 <Text style={{textAlign: 'right', color: '#B69902'}}>
-                -₹ {datas.main.CODAmount}
+                  -₹ {datas.main.CODAmount}
                 </Text>
               </View>
             </View>

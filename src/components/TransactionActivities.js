@@ -17,6 +17,13 @@ const TransactionActivities = ({data}) => {
   const [decription, setDecription] = useState('');
   const [date, setDate] = useState('');
 
+
+  console.log(data)
+
+
+
+
+
   const handleShowModal = (title, date, newAmount, oldAmount, desc) => {
     setTitle(title);
     setDate(date);
@@ -108,9 +115,8 @@ const TransactionActivities = ({data}) => {
                     hit.oldamount,
                     hit.descriptin,
                   )
-                }
-                // onPress={() => setModalVisible(true)}
-                style={{flexDirection: 'row', marginTop: 15}}>
+                } style={{flexDirection: 'row',padding:5, marginTop: 15,backgroundColor:hit.type == 2 ? "pink":""}}>
+
                 <View style={{flex: 0.5}}>
                   <Image
                     style={{width: 50, height: 50, borderRadius: 1000}}
@@ -127,7 +133,7 @@ const TransactionActivities = ({data}) => {
                 </View>
                 <View style={{flex: 1, marginTop: 6}}>
                   <View style={{alignSelf: 'flex-end'}}>
-                    <Text style={{color: '#FF8A00'}}>₹{hit.amount}</Text>
+                    <Text style={{color: hit.type == 2 ?  "white": '#FF8A00'}}>₹{hit.amount}</Text>
                     <Text style={{textAlign: 'right', color: '#808080'}}>
                       ₹{hit.oldamount}
                     </Text>
