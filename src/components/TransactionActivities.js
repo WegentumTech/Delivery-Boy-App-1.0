@@ -9,8 +9,23 @@ import {
 import React, {useState} from 'react';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 
-const TransactionActivities = () => {
+const TransactionActivities = ({data}) => {
   const [modalVisible, setModalVisible] = useState(false);
+  const [title, setTitle] = useState('');
+  const [newAmmount, setNewAmmount] = useState('');
+  const [oldAmount, setOldAmount] = useState('');
+  const [decription, setDecription] = useState('');
+  const [date, setDate] = useState('');
+
+  const handleShowModal = (title, date, newAmount, oldAmount, desc) => {
+    setTitle(title);
+    setDate(date);
+    setNewAmmount(newAmount);
+    setOldAmount(oldAmount);
+    setDecription(desc);
+    setModalVisible(true);
+  };
+
   return (
     <View style={{marginBottom: 20}}>
       <View style={{marginHorizontal: 15}}>
@@ -41,10 +56,11 @@ const TransactionActivities = () => {
               elevation: 15,
               borderRadius: 15,
             }}>
-            <View style={{position: 'absolute', alignSelf: 'flex-end',top:-10}}>
-                <TouchableOpacity onPress={()=>setModalVisible(false)}>
-              <AntDesign name="closecircle" size={25} color="red" />
-                </TouchableOpacity>
+            <View
+              style={{position: 'absolute', alignSelf: 'flex-end', top: -10}}>
+              <TouchableOpacity onPress={() => setModalVisible(false)}>
+                <AntDesign name="closecircle" size={25} color="red" />
+              </TouchableOpacity>
             </View>
 
             <View style={{flexDirection: 'row', marginTop: 15}}>
@@ -55,18 +71,16 @@ const TransactionActivities = () => {
                 />
               </View>
               <View style={{flex: 1, marginTop: 6}}>
-                <Text style={{color: '#000000', fontSize: 15}}>
-                  COD Setteled
-                </Text>
-                <Text style={{color: '#000000'}}>12/05/2022</Text>
+                <Text style={{color: '#000000', fontSize: 15}}>{title}</Text>
+                <Text style={{color: '#000000'}}>{date}</Text>
               </View>
               <View style={{flex: 1, marginTop: 6}}>
                 <View style={{alignSelf: 'flex-end'}}>
                   <Text style={{color: '#185601', fontWeight: 'bold'}}>
-                    + ₹300.00
+                    ₹{newAmmount}
                   </Text>
                   <Text style={{textAlign: 'right', color: '#808080'}}>
-                    ₹900.00
+                    ₹{oldAmount}
                   </Text>
                 </View>
               </View>
@@ -76,299 +90,52 @@ const TransactionActivities = () => {
               <Text style={{fontWeight: 'bold', color: '#000000'}}>
                 Description :
               </Text>
-              <Text style={{color: '#000000', marginTop: 5}}>
-                Lorem Ipsum is simply dummy text of the printing and typesetting
-                industry. Lorem Ipsum has been the industry's standard dummy
-                text ever since the 1500s, when an unknown printer took a galley
-                of type and scrambled it to make a type specimen book. It has
-                survived not only five centuries.
-              </Text>
+              <Text style={{color: '#000000', marginTop: 5}}>{decription}</Text>
             </View>
           </View>
         </Modal>
 
         <View>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={()=>setModalVisible(true)} style={{flexDirection: 'row', marginTop: 15}}>
-            <View style={{flex: 0.5}}>
-              <Image
-                style={{width: 50, height: 50, borderRadius: 1000}}
-                source={require('../assets/img/applogo.png')}
-              />
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <Text style={{color: '#000000', fontSize: 15}}>COD Setteled</Text>
-              <Text style={{color: '#000000'}}>12/05/2022</Text>
-            </View>
-            <View style={{flex: 1, marginTop: 6}}>
-              <View style={{alignSelf: 'flex-end'}}>
-                <Text style={{color: '#FF8A00'}}>- ₹300.00</Text>
-                <Text style={{textAlign: 'right', color: '#808080'}}>
-                  ₹900.00
-                </Text>
-              </View>
-            </View>
-          </TouchableOpacity>
-         
+          {data.transction.map(hit => {
+            return (
+              <TouchableOpacity
+                key={hit.id}
+                onPress={() =>
+                  handleShowModal(
+                    hit.title,
+                    hit.created_at.slice(-0, -11),
+                    hit.amount,
+                    hit.oldamount,
+                    hit.descriptin,
+                  )
+                }
+                // onPress={() => setModalVisible(true)}
+                style={{flexDirection: 'row', marginTop: 15}}>
+                <View style={{flex: 0.5}}>
+                  <Image
+                    style={{width: 50, height: 50, borderRadius: 1000}}
+                    source={require('../assets/img/applogo.png')}
+                  />
+                </View>
+                <View style={{flex: 1, marginTop: 6}}>
+                  <Text style={{color: '#000000', fontSize: 15}}>
+                    {hit.title}
+                  </Text>
+                  <Text style={{color: '#000000'}}>
+                    {hit.created_at.slice(-0, -8)}
+                  </Text>
+                </View>
+                <View style={{flex: 1, marginTop: 6}}>
+                  <View style={{alignSelf: 'flex-end'}}>
+                    <Text style={{color: '#FF8A00'}}>₹{hit.amount}</Text>
+                    <Text style={{textAlign: 'right', color: '#808080'}}>
+                      ₹{hit.oldamount}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+            );
+          })}
         </View>
       </View>
     </View>

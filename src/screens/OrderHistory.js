@@ -39,6 +39,7 @@ const OrderHistory = () => {
           },
         )
         .then(acc => {
+          console.log(acc.data)
           setData(acc.data);
         })
         .catch(err => {
