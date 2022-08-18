@@ -32,22 +32,16 @@ const SingleOrderMapArea = () => {
   const [modalVisible2, setModalVisible2] = useState(false);
   const [markAsDelivered, setMarkAsDelivered] = useState(false);
   const [showLocationStatus, setShowLocationStatus] = useState(false);
-  const [oldStatus, setOldStatus] = useState("")
-  const [showIt, setShowIt] = useState(true)
+  const [oldStatus, setOldStatus] = useState('');
+  const [showIt, setShowIt] = useState(true);
   const route = useRoute();
 
   useEffect(() => {
-
-
-    
-    fetchData()
-    
-    
-    
+    fetchData();
   }, []);
-  
-  const fetchData = async() =>{
-    console.log(route.params.id)
+
+  const fetchData = async () => {
+    console.log(route.params.id);
     try {
       axios
         .post(
@@ -63,20 +57,18 @@ const SingleOrderMapArea = () => {
           },
         )
         .then(acc => {
-          
           console.log(acc.data);
-          setOldStatus(acc.data.order_status)
-
+          setOldStatus(acc.data.order_status);
 
           if (acc.data.order_status == 8) {
             setModalVisible2(false);
             setShowLocationStatus(true);
           }
           if (acc.data.order_status == 9) {
-            setShowLocationStatus(true);            
+            setShowLocationStatus(true);
             setMarkAsDelivered(true);
           }
-          setShowIt(false)
+          setShowIt(false);
         })
         .catch(err => {
           console.log(err);
@@ -84,17 +76,14 @@ const SingleOrderMapArea = () => {
     } catch (error) {
       console.log(error);
     }
-
-  }
+  };
   const handleNo = () => {
     setModalVisible(false);
     setIsEnabled(false);
   };
   const handleYes = () => {
-    console.log(`old status is `+oldStatus)
-    console.log(`Order id is `+route.params.id)
-
-
+    console.log(`old status is ` + oldStatus);
+    console.log(`Order id is ` + route.params.id);
 
     try {
       axios
@@ -124,11 +113,6 @@ const SingleOrderMapArea = () => {
     } catch (error) {
       console.log(error);
     }
-
-
-
-
-  
   };
   const changingState = () => {
     setCountdown(5);
@@ -148,8 +132,8 @@ const SingleOrderMapArea = () => {
   };
 
   const handleYes2 = () => {
-    console.log(`old status is `+route.params.status)
-    console.log(`Order id is `+route.params.id)
+    console.log(`old status is ` + route.params.status);
+    console.log(`Order id is ` + route.params.id);
 
     try {
       axios
@@ -171,7 +155,7 @@ const SingleOrderMapArea = () => {
           console.log(acc.data);
           setModalVisible2(false);
           setShowLocationStatus(true);
-          fetchData()
+          fetchData();
         })
         .catch(err => {
           console.log(err);
@@ -390,74 +374,68 @@ const SingleOrderMapArea = () => {
               {route.params.stausMethod}
             </Text>
             <>
-            {
-               showIt ?
-               <></>
-
-
-               :
-               <>
-
-
-               {!showLocationStatus ? (
-                 <View>
-                   <TouchableOpacity onPress={() => setModalVisible2(true)}>
-                     <Text
-                       style={{
-                         backgroundColor: '#FFF2EE',
-                         padding: 5,
-                         color: 'black',
-                         borderRadius: 5,
-                       }}>
-                       At Location ?
-                     </Text>
-                   </TouchableOpacity>
-                 </View>
-               ) : (
-                 <View style={{flex: 1}}>
-                   {markAsDelivered ? (
-                     <View
-                       style={{
-                         backgroundColor: 'green',
-                         padding: 5,
-                         borderRadius: 10,
-                       }}>
-                       <Text
-                         style={{
-                           color: 'white',
-                           fontWeight: 'bold',
-                           textAlign: 'center',
-                         }}>
-                         Delivered
-                       </Text>
-                     </View>
-                   ) : (
-                     <View
-                       style={{
-                         flexDirection: 'row',
-                         alignSelf: 'flex-end',
-                         backgroundColor: '#FFF2EE',
-                         padding: 5,
-                         borderRadius: 10,
-                       }}>
-                       <Text style={{color: 'black', marginTop: 5}}>
-                         Delivered
-                       </Text>
-                       <Switch
-                         trackColor={{false: '#767577', true: '#81b0ff'}}
-                         thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-                         ios_backgroundColor="#3e3e3e"
-                         onValueChange={toggleSwitch}
-                         value={isEnabled}
-                         onChange={() => changingState()}
-                       />
-                     </View>
-                   )}
-                 </View>
-               )}
-               </>
-
-            }
+              {showIt ? (
+                <></>
+              ) : (
+                <>
+                  {!showLocationStatus ? (
+                    <View>
+                      <TouchableOpacity onPress={() => setModalVisible2(true)}>
+                        <Text
+                          style={{
+                            backgroundColor: '#FFF2EE',
+                            padding: 5,
+                            color: 'black',
+                            borderRadius: 5,
+                          }}>
+                          At Location ?
+                        </Text>
+                      </TouchableOpacity>
+                    </View>
+                  ) : (
+                    <View style={{flex: 1}}>
+                      {markAsDelivered ? (
+                        <View
+                          style={{
+                            backgroundColor: 'green',
+                            padding: 5,
+                            borderRadius: 10,
+                          }}>
+                          <Text
+                            style={{
+                              color: 'white',
+                              fontWeight: 'bold',
+                              textAlign: 'center',
+                            }}>
+                            Delivered
+                          </Text>
+                        </View>
+                      ) : (
+                        <View
+                          style={{
+                            flexDirection: 'row',
+                            alignSelf: 'flex-end',
+                            backgroundColor: '#FFF2EE',
+                            padding: 5,
+                            borderRadius: 10,
+                          }}>
+                          <Text style={{color: 'black', marginTop: 5}}>
+                            Delivered
+                          </Text>
+                          <Switch
+                            trackColor={{false: '#767577', true: '#81b0ff'}}
+                            thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
+                            onChange={() => changingState()}
+                          />
+                        </View>
+                      )}
+                    </View>
+                  )}
+                </>
+              )}
             </>
           </View>
         </View>

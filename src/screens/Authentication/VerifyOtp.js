@@ -97,7 +97,7 @@ const VerifyOtp = () => {
         </View>
       </View>
 
-      <View style={{flex: 1, justifyContent: 'flex-end', marginBottom: 30}}>
+      {/* <View style={{flex: 1, justifyContent: 'flex-end', marginBottom: 30}}>
         <Text style={{textAlign: 'center', color: '#2B2E35'}}>
           Having Any Problem ?{' '}
           <Text
@@ -106,7 +106,7 @@ const VerifyOtp = () => {
             Contact Us
           </Text>
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 };

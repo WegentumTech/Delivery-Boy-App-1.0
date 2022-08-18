@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
     backgroundColor:"white",
     elevation:2,
     color:"#FF8626",
-    padding:10
+    paddingLeft:25
   },
   enterButton:{
     textAlign:"center",

@@ -117,7 +117,7 @@ const Login = () => {
             onChangeText={text => {
               setUsername({username: text});
             }}
-            placeholder="      Enter your email or number"
+            placeholder="Enter your email or number"
             placeholderTextColor="#FF8626"
             style={styles.InputBox}
           />
@@ -126,7 +126,7 @@ const Login = () => {
             onChangeText={text => {
               setPassword({password: text});
             }}
-            placeholder="      *************"
+            placeholder="*************"
             placeholderTextColor="#FF8626"
             secureTextEntry={true}
             style={styles.InputBox}
@@ -155,7 +155,7 @@ const Login = () => {
         )}
       </View>
 
-      <View style={{flex: 1, justifyContent: 'flex-end', marginBottom: 30}}>
+      {/* <View style={{flex: 1, justifyContent: 'flex-end', marginBottom: 30}}>
         <Text style={{textAlign: 'center', color: '#2B2E35'}}>
           Having Any Problem ?{' '}
           <Text
@@ -164,7 +164,7 @@ const Login = () => {
             Contact Us
           </Text>
         </Text>
-      </View>
+      </View> */}
     </View>
   );
 };

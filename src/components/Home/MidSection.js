@@ -6,8 +6,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommu
 import MaterialIcons from 'react-native-vector-icons/dist/MaterialIcons';
 import AntDesign from 'react-native-vector-icons/dist/AntDesign';
 import {useNavigation} from '@react-navigation/native';
-import axios from "axios";
-import {AuthKey,AuthPassword,BACKEND_URL,SIMPLE_URL} from "../../helper/baseUrl"
+import axios from 'axios';
+import {
+  AuthKey,
+  AuthPassword,
+  BACKEND_URL,
+  SIMPLE_URL,
+} from '../../helper/baseUrl';
 
 const MidSection = () => {
   const navigation = useNavigation();
@@ -37,7 +42,6 @@ const MidSection = () => {
         .then(acc => {
           setData(acc.data);
           console.log(acc.data);
-
         })
         .catch(err => {
           console.log(err);
@@ -118,14 +122,7 @@ const MidSection = () => {
                   color: 'black',
                   fontWeight: 'bold',
                 }}>
-                {
-                  data ?
-                  <Text>{data.length}</Text>
-
-                  :
-
-                  <Text>...</Text>
-                }
+                {data ? <Text>{data.length}</Text> : <Text>...</Text>}
               </Text>
             </View>
           </TouchableOpacity>
@@ -162,14 +159,7 @@ const MidSection = () => {
                   color: 'black',
                   fontWeight: 'bold',
                 }}>
-                 {
-                  datas ?
-                  <Text>{datas.length}</Text>
-
-                  :
-
-                  <Text>...</Text>
-                }
+                {datas ? <Text>{datas.length}</Text> : <Text>...</Text>}
               </Text>
             </View>
           </TouchableOpacity>
@@ -177,7 +167,7 @@ const MidSection = () => {
 
         <View style={{flexDirection: 'row', marginTop: 30}}>
           <TouchableOpacity
-           onPress={() => navigation.navigate('TotalReviews')}
+            onPress={() => navigation.navigate('Transaction')}
             activeOpacity={1}
             style={{
               flex: 1,
@@ -201,7 +191,7 @@ const MidSection = () => {
                   marginTop: 5,
                   fontSize: 13,
                 }}>
-               My Earnings
+               Transactions
               </Text>
               <Text
                 style={{
@@ -209,7 +199,7 @@ const MidSection = () => {
                   color: 'black',
                   fontWeight: 'bold',
                 }}>
-                13
+              
               </Text>
             </View>
           </TouchableOpacity>
@@ -247,7 +237,7 @@ const MidSection = () => {
                   color: 'black',
                   fontWeight: 'bold',
                 }}>
-                51
+                {/* 51 */}
               </Text>
             </View>
           </TouchableOpacity>

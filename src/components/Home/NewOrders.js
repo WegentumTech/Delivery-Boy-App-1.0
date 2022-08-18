@@ -26,14 +26,7 @@ const NewOrders = () => {
   const [datas2, setDatas2] = useState('');
   const [roled, setRoled] = useState('');
 
-
   useEffect(() => {
-
-
-    
-    
-    
-    
     const getData = async () => {
       const role = await AsyncStorage.getItem('ActiveUserType');
       setRoled(role);
@@ -134,146 +127,175 @@ const NewOrders = () => {
 
   return (
     <>
+      {roled ? roled == 'INNER' ? <MyOrders data={datas2} /> : <></> : <></>}
+      {roled ? (
+        roled !== 'INNER' ? (
+          <>
+            <MyOrders data={datas2} />
 
-
-{roled ? roled == 'INNER' ? <></> : <MyOrders data={datas2} /> : <></>}
-
-
-
-
-      
-      <View style={{marginHorizontal: 20}}>
-        <View style={{flexDirection: 'row'}}>
-          <Text
-            style={{
-              color: 'black',
-              fontWeight: 'bold',
-              marginTop: 10,
-              fontSize: 16,
-              flex: 1,
-            }}>
-            New Orders
-          </Text>
-          <Text
-            onPress={() => navigation.navigate('CompleteNewOrders')}
-            style={{
-              color: 'black',
-              fontWeight: 'bold',
-              marginTop: 10,
-              fontSize: 16,
-              textAlign: 'right',
-              flex: 1,
-            }}>
-            {'All >'}
-          </Text>
-        </View>
-
-        {datas ? (
-          datas.slice(0, 5).map(hit => {
-            return (
-              <View
-                key={hit.orderid}
-                style={{
-                  flexDirection: 'row',
-                  backgroundColor: 'white',
-                  elevation: 2,
-                  padding: 5,
-                  marginTop: 10,
-                  borderRadius: 5,
-                  marginBottom: 10,
-                }}>
-                <View style={{flex: 1}}>
-                  <Image
-                    style={{width: 130, height: 120, borderRadius: 10}}
-                    source={{
-                      uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
-                    }}
-                  />
-                </View>
-                <View style={{flex: 1.5}}>
-                  <Text
-                    style={{
-                      color: '#565656',
-                      fontSize: 15,
-                      fontWeight: 'bold',
-                      marginLeft: 10,
-                      marginBottom: 5,
-                    }}>
-                    {hit.name}
-                  </Text>
-                  <View style={{flexDirection: 'row'}}>
-                    <Ionicons name="location-sharp" size={15} color="#FFBE79" />
-
-                    <Text style={{fontSize: 10, color: '#565656'}}>
-                      {hit.address}
-                    </Text>
-                  </View>
-                  <View style={{flexDirection: 'row'}}>
-                    <AntDesign
-                      style={{marginLeft: 2, marginTop: 5}}
-                      name="clockcircle"
-                      size={10}
-                      color="#FFBE79"
-                    />
-
-                    <Text
-                      style={{fontSize: 10, color: '#565656', marginTop: 3}}>
-                      {' '}
-                      {hit.order_time}
-                    </Text>
-                  </View>
-                  <View style={{flexDirection: 'row'}}>
-                    <Ionicons
-                      style={{marginLeft: 2, marginTop: 5}}
-                      name="person"
-                      size={12}
-                      color="#FFBE79"
-                    />
-
-                    <Text
-                      style={{fontSize: 10, color: '#565656', marginTop: 5}}>
-                      {' '}
-                      {hit.payment_method}
-                    </Text>
-                  </View>
-                  {isLoading ? (
-                    <Text
-                      style={{
-                        backgroundColor: '#FFF2EE',
-                        color: 'black',
-                        padding: 6,
-                        borderRadius: 5,
-                        marginTop: 10,
-                        marginRight: 80,
-                        textAlign: 'center',
-                      }}>
-                      <ActivityIndicator size="small" color="black" />
-                    </Text>
-                  ) : (
-                    <TouchableOpacity
-                      onPress={() => CheckingToAssign(hit.orderid)}>
-                      <Text
-                        style={{
-                          backgroundColor: '#FFF2EE',
-                          color: 'black',
-                          padding: 6,
-                          borderRadius: 5,
-                          marginTop: 10,
-                          marginRight: 80,
-                          textAlign: 'center',
-                        }}>
-                        Assign Myself
-                      </Text>
-                    </TouchableOpacity>
-                  )}
-                </View>
+            <View style={{marginHorizontal: 20}}>
+              <View style={{flexDirection: 'row'}}>
+                <Text
+                  style={{
+                    color: 'black',
+                    fontWeight: 'bold',
+                    marginTop: 10,
+                    fontSize: 16,
+                    flex: 1,
+                  }}>
+                  New Orders
+                </Text>
+                <Text
+                  onPress={() => navigation.navigate('CompleteNewOrders')}
+                  style={{
+                    color: 'black',
+                    fontWeight: 'bold',
+                    marginTop: 10,
+                    fontSize: 16,
+                    textAlign: 'right',
+                    flex: 1,
+                  }}>
+                  {'All >'}
+                </Text>
               </View>
-            );
-          })
+
+              {datas ? (
+                datas.length === 0 ? (
+                  <>
+                    <Image
+                      style={{width: 200, height: 150, alignSelf: 'center'}}
+                      source={require('../../assets/img/noneworder.png')}
+                    />
+                    <Text style={{textAlign: 'center', color: '#7a7878'}}>
+                      No Any New Order
+                    </Text>
+                  </>
+                ) : (
+                  datas.slice(0, 5).map(hit => {
+                    return (
+                      <View
+                        key={hit.orderid}
+                        style={{
+                          flexDirection: 'row',
+                          backgroundColor: 'white',
+                          elevation: 2,
+                          padding: 5,
+                          marginTop: 10,
+                          borderRadius: 5,
+                          marginBottom: 10,
+                        }}>
+                        <View style={{flex: 1}}>
+                          <Image
+                            style={{width: 130, height: 120, borderRadius: 10}}
+                            source={{
+                              uri: 'https://assets.cntraveller.in/photos/60ba2767e1b212c19a8181e1/master/pass/Meals-by-Chefkraft.jpg',
+                            }}
+                          />
+                        </View>
+                        <View style={{flex: 1.5}}>
+                          <Text
+                            style={{
+                              color: '#565656',
+                              fontSize: 15,
+                              fontWeight: 'bold',
+                              marginLeft: 10,
+                              marginBottom: 5,
+                            }}>
+                            {hit.name}
+                          </Text>
+                          <View style={{flexDirection: 'row'}}>
+                            <Ionicons
+                              name="location-sharp"
+                              size={15}
+                              color="#FFBE79"
+                            />
+
+                            <Text style={{fontSize: 10, color: '#565656'}}>
+                              {hit.address}
+                            </Text>
+                          </View>
+                          <View style={{flexDirection: 'row'}}>
+                            <AntDesign
+                              style={{marginLeft: 2, marginTop: 5}}
+                              name="clockcircle"
+                              size={10}
+                              color="#FFBE79"
+                            />
+
+                            <Text
+                              style={{
+                                fontSize: 10,
+                                color: '#565656',
+                                marginTop: 3,
+                              }}>
+                              {' '}
+                              {hit.order_time}
+                            </Text>
+                          </View>
+                          <View style={{flexDirection: 'row'}}>
+                            <Ionicons
+                              style={{marginLeft: 2, marginTop: 5}}
+                              name="person"
+                              size={12}
+                              color="#FFBE79"
+                            />
+
+                            <Text
+                              style={{
+                                fontSize: 10,
+                                color: '#565656',
+                                marginTop: 5,
+                              }}>
+                              {' '}
+                              {hit.payment_method}
+                            </Text>
+                          </View>
+                          {isLoading ? (
+                            <Text
+                              style={{
+                                backgroundColor: '#FFF2EE',
+                                color: 'black',
+                                padding: 6,
+                                borderRadius: 5,
+                                marginTop: 10,
+                                marginRight: 80,
+                                textAlign: 'center',
+                              }}>
+                              <ActivityIndicator size="small" color="black" />
+                            </Text>
+                          ) : (
+                            <TouchableOpacity
+                              onPress={() => CheckingToAssign(hit.orderid)}>
+                              <Text
+                                style={{
+                                  backgroundColor: '#FFF2EE',
+                                  color: 'black',
+                                  padding: 6,
+                                  borderRadius: 5,
+                                  marginTop: 10,
+                                  marginRight: 80,
+                                  textAlign: 'center',
+                                }}>
+                                Assign Myself
+                              </Text>
+                            </TouchableOpacity>
+                          )}
+                        </View>
+                      </View>
+                    );
+                  })
+                )
+              ) : (
+                <></>
+              )}
+            </View>
+          </>
         ) : (
           <></>
-        )}
-      </View>
+        )
+      ) : (
+        <></>
+      )}
     </>
   );
 };

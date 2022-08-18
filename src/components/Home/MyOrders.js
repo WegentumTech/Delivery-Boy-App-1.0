@@ -46,6 +46,29 @@ const MyOrders = ({data}) => {
         </Text>
       </View>
       {data ? (
+        data.length === 0 ?
+
+        <>
+              <Image
+                style={{width: 200, height: 150, alignSelf: 'center'}}
+                source={require('../../assets/img/noneworder.png')}
+              />
+              <Text style={{textAlign: 'center', color: '#7a7878'}}>
+                No Any Order Assigned
+              </Text>
+            </>
+
+
+        :
+
+
+
+
+
+
+
+
+
         data.slice(0, 5).map(hit => {
           return (
             <TouchableOpacity
