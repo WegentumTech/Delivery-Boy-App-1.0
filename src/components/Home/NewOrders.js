@@ -18,6 +18,7 @@ import {
 } from '../../helper/baseUrl';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import MyOrders from './MyOrders';
+import Toast from 'react-native-toast-message';
 
 const NewOrders = () => {
   const navigation = useNavigation();
@@ -108,9 +109,19 @@ const NewOrders = () => {
           console.log(acc.data);
 
           if (acc.data.status) {
-            console.log('this is assigned To You');
+            Toast.show({
+              type: 'success',
+              text1: 'This order is assigned To You',
+              text2: 'Best of luck for this order'
+            });
+            console.log('This order is assigned To You');
             getMyData();
           } else {
+            Toast.show({
+              type: 'error',
+              text1: 'This Order is already assigned to someone',
+              text2: 'Please try another delivery'
+            });
             console.log('this is already assigned to someone');
             getMyData();
           }
@@ -127,6 +138,7 @@ const NewOrders = () => {
 
   return (
     <>
+    
       {roled ? roled == 'INNER' ? <MyOrders data={datas2} /> : <></> : <></>}
       {roled ? (
         roled !== 'INNER' ? (
@@ -296,6 +308,8 @@ const NewOrders = () => {
       ) : (
         <></>
       )}
+
+<Toast position='bottom' />
     </>
   );
 };
