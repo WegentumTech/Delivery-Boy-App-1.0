@@ -5,6 +5,7 @@ import PressBack from '../components/PressBack';
 import MaterialCommunityIcons from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import TransactionActivities from '../components/TransactionActivities';
 import axios from 'axios';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   AuthKey,
   AuthPassword,
@@ -15,30 +16,36 @@ const Transaction = () => {
   const [datas, setDatas] = useState('');
 
   useEffect(() => {
-    try {
-      axios
-        .post(
-          BACKEND_URL + 'transctions',
-          {
-            boy_id: 'SWADEB2',
-          },
-          {
-            headers: {
-              authkey: AuthKey,
-              secretkey: AuthPassword,
+    const getData = async () => {
+      const userId = await AsyncStorage.getItem('ActiveUserId');
+
+      try {
+        axios
+          .post(
+            BACKEND_URL + 'transctions',
+            {
+              boy_id: userId,
             },
-          },
-        )
-        .then(acc => {
-          console.log(acc.data);
-          setDatas(acc.data);
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    } catch (error) {
-      console.log(error);
-    }
+            {
+              headers: {
+                authkey: AuthKey,
+                secretkey: AuthPassword,
+              },
+            },
+          )
+          .then(acc => {
+            console.log(acc.data);
+            setDatas(acc.data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    getData();
   }, []);
 
   return (

@@ -15,11 +15,12 @@ import PendingDelivery from '../screens/Subscreens/PendingDelivery';
 import TotalReviews from '../screens/Subscreens/TotalReviews';
 import CompleteMyOrders from '../screens/Detailed/CompleteMyOrders';
 import CompleteNewOrders from '../screens/Detailed/CompleteNewOrders';
+import SplashScreen from '../screens/SplashScreen';
 const Stack = createStackNavigator();
 
 function StackNavigation() {
   return (
-    <Stack.Navigator  initialRouteName='Login' screenOptions={{headerShown:false,cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS}}>
+    <Stack.Navigator  initialRouteName='SplashScreen' screenOptions={{headerShown:false,cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS}}>
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="ForgotPassword" component={ForgotPassword} />
       <Stack.Screen name="VerifyOtp" component={VerifyOtp} />
@@ -33,6 +34,7 @@ function StackNavigation() {
       <Stack.Screen name="TotalReviews" component={TotalReviews} />
       <Stack.Screen name="CompleteMyOrders" component={CompleteMyOrders} />
       <Stack.Screen name="CompleteNewOrders" component={CompleteNewOrders} />
+      <Stack.Screen name="SplashScreen" component={SplashScreen} />
     </Stack.Navigator>
   );
 }

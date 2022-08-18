@@ -8,6 +8,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import Help from '../screens/Help';
 import Logout from '../screens/Logout';
 import QRScanner from '../screens/QRScanner';
@@ -129,6 +130,28 @@ function DrawerNavigation() {
         name="Help"
         component={Help}
       /> */}
+
+      <Drawer.Screen
+        options={{
+          swipeEnabled: false,
+          gestureEnabled: false,
+          drawerIcon: ({color}) => (
+            <MaterialCommunityIcons
+              style={{
+                backgroundColor: '#FF8626',
+                padding: 5,
+                borderRadius: 100,
+              }}
+              name="transfer"
+              size={24}
+              color="white"
+            />
+          ),
+        }}
+        name="Transaction"
+        component={Transaction}
+      />
+
       <Drawer.Screen
         options={{
           swipeEnabled: false,
@@ -148,26 +171,6 @@ function DrawerNavigation() {
         }}
         name="Logout"
         component={Logout}
-      />
-      <Drawer.Screen
-        options={{
-          swipeEnabled: false,
-          gestureEnabled: false,
-          drawerIcon: ({color}) => (
-            <MaterialIcons
-              style={{
-                backgroundColor: '#FF8626',
-                padding: 5,
-                borderRadius: 100,
-              }}
-              name="logout"
-              size={24}
-              color="white"
-            />
-          ),
-        }}
-        name="Transaction"
-        component={Transaction}
       />
     </Drawer.Navigator>
   );

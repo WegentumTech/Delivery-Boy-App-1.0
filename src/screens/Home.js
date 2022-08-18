@@ -10,6 +10,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const Home = () => {
   const [roled, setRoled] = useState('');
   useEffect(() => {
+    AsyncStorage.setItem("Reached","Yes")
     getUserRole();
   }, []);
 
@@ -22,8 +23,7 @@ const Home = () => {
     <ScrollView style={styles.ScreenBack}>
       <Header />
       <MidSection />
-      <MyOrders />
-      {roled ? roled == 'INNER' ? <></> : <NewOrders /> : <></>}
+      <NewOrders/>
     </ScrollView>
   );
 };

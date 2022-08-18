@@ -12,39 +12,11 @@ import {
 } from '../../helper/baseUrl';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const MyOrders = () => {
+const MyOrders = ({data}) => {
   const navigation = useNavigation();
-  const [datas, setDatas] = useState('');
 
   useEffect(() => {
-    const getData = async () => {
-      const val = await AsyncStorage.getItem('ActiveUserId');
-
-      try {
-        axios
-          .post(
-            BACKEND_URL + 'myorder',
-            {
-              delivery_boy_id: val,
-            },
-            {
-              headers: {
-                authkey: AuthKey,
-                secretkey: AuthPassword,
-              },
-            },
-          )
-          .then(acc => {
-            setDatas(acc.data);
-          })
-          .catch(err => {
-            console.log(err);
-          });
-      } catch (error) {
-        console.log(error);
-      }
-    };
-    getData();
+   
   }, []);
 
   return (
@@ -68,17 +40,13 @@ const MyOrders = () => {
             marginTop: 10,
             fontSize: 16,
             textAlign: 'right',
-            flex: 1
-            
+            flex: 1,
           }}>
-            <Text >
-
-          {'All >'}
-            </Text>
+          <Text>{'All >'}</Text>
         </Text>
       </View>
-      {datas ? (
-        datas.slice(0, 5).map(hit => {
+      {data ? (
+        data.slice(0, 5).map(hit => {
           return (
             <TouchableOpacity
               key={hit.orderid}
@@ -91,8 +59,7 @@ const MyOrders = () => {
                   status: hit.order_status,
                   contactNumber: hit.contact,
                   stausMethod: hit.payment_method,
-                  id:hit.orderid,
-                  
+                  id: hit.orderid,
                 })
               }
               activeOpacity={1}>

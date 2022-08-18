@@ -37,6 +37,16 @@ const SingleOrderMapArea = () => {
   const route = useRoute();
 
   useEffect(() => {
+
+
+    
+    fetchData()
+    
+    
+    
+  }, []);
+  
+  const fetchData = async() =>{
     console.log(route.params.id)
     try {
       axios
@@ -74,8 +84,8 @@ const SingleOrderMapArea = () => {
     } catch (error) {
       console.log(error);
     }
-  }, []);
 
+  }
   const handleNo = () => {
     setModalVisible(false);
     setIsEnabled(false);
@@ -161,6 +171,7 @@ const SingleOrderMapArea = () => {
           console.log(acc.data);
           setModalVisible2(false);
           setShowLocationStatus(true);
+          fetchData()
         })
         .catch(err => {
           console.log(err);
