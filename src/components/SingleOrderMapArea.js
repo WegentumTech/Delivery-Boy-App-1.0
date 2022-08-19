@@ -17,6 +17,8 @@ import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import Feather from 'react-native-vector-icons/dist/Feather';
 import {useRoute} from '@react-navigation/native';
 import axios from 'axios';
+import { useNavigation } from '@react-navigation/native';
+
 import {
   AuthKey,
   AuthPassword,
@@ -34,9 +36,16 @@ const SingleOrderMapArea = () => {
   const [showLocationStatus, setShowLocationStatus] = useState(false);
   const [oldStatus, setOldStatus] = useState('');
   const [showIt, setShowIt] = useState(true);
+  const [initialStatus, setInitialStatus] = useState(false);
+  const [secondState, setSecondState] = useState(false)
   const route = useRoute();
+  const navigation = useNavigation();
+
 
   useEffect(() => {
+
+    setSecondState(true)
+   
     fetchData();
   }, []);
 
@@ -58,6 +67,11 @@ const SingleOrderMapArea = () => {
         )
         .then(acc => {
           console.log(acc.data);
+
+          if (acc.data.order_status <= 4) {
+            setInitialStatus(false);
+          }
+
           setOldStatus(acc.data.order_status);
 
           if (acc.data.order_status == 8) {
@@ -164,6 +178,17 @@ const SingleOrderMapArea = () => {
       console.log(error);
     }
   };
+
+
+
+
+
+  const handleYesReceived = () =>{
+
+
+
+    
+  }
 
   return (
     <ImageBackground
@@ -305,6 +330,121 @@ const SingleOrderMapArea = () => {
           </View>
         </View>
       </Modal>
+
+      <Modal animationType="slide" transparent={true} visible={initialStatus}>
+        <View
+          style={{
+            backgroundColor: 'white',
+            padding: 20,
+            borderRadius: 15,
+            elevation: 100,
+            height: '100%',
+            width:"100%"
+          }}>
+          <View style={{marginTop: 100}}>
+            <Image
+              style={{width: 200, height: 200, alignSelf: 'center'}}
+              source={require('../assets/img/cooking.png')}
+            />
+
+            <Text style={{alignSelf: 'center', color: 'black', fontSize: 25}}>
+              This Order Is Under Cooking
+            </Text>
+            <Text style={{textAlign: 'center', marginTop: 10}}>
+              please come again after few times
+            </Text>
+            <View style={{marginTop:30}}>
+              <TouchableOpacity onPress={()=>navigation.goBack()}>
+            <Text style={styles.button2}>Go Back</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </View>
+      </Modal>
+
+
+
+
+
+
+
+
+      <Modal animationType="slide" transparent={true} visible={secondState}>
+
+
+      <View
+          style={{
+            backgroundColor: 'white',
+            marginTop: 180,
+            padding: 20,
+            marginHorizontal: 15,
+            borderRadius: 15,
+            elevation: 100,
+          }}>
+          <Text
+            style={{
+              textAlign: 'center',
+              color: 'black',
+              fontSize: 20,
+              fontWeight: 'bold',
+            }}>
+            Have You Received The Order ?
+          </Text>
+        
+
+          <View
+            style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 10}}>
+            <Text
+              onPress={() =>navigation.goBack()}
+              style={{
+                color: 'white',
+                textAlign: 'right',
+                flex: 1,
+                backgroundColor: 'red',
+                margin: 10,
+                textAlign: 'center',
+                borderRadius: 10,
+                padding: 10,
+              }}>
+              No
+            </Text>
+
+            <Text
+              onPress={() => handleYesReceived()}
+              style={{
+                color: 'white',
+                flex: 1,
+                backgroundColor: 'green',
+                margin: 10,
+                textAlign: 'center',
+                borderRadius: 10,
+                padding: 10,
+              }}>
+              Yes
+            </Text>
+          </View>
+        </View>
+       
+
+
+
+
+      </Modal>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
       <View style={{flex: 1}}></View>
 
