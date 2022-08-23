@@ -17,7 +17,7 @@ import Ionicons from 'react-native-vector-icons/dist/Ionicons';
 import Feather from 'react-native-vector-icons/dist/Feather';
 import {useRoute} from '@react-navigation/native';
 import axios from 'axios';
-import { useNavigation } from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 
 import {
   AuthKey,
@@ -37,15 +37,11 @@ const SingleOrderMapArea = () => {
   const [oldStatus, setOldStatus] = useState('');
   const [showIt, setShowIt] = useState(true);
   const [initialStatus, setInitialStatus] = useState(false);
-  const [secondState, setSecondState] = useState(false)
+  const [secondState, setSecondState] = useState(false);
   const route = useRoute();
   const navigation = useNavigation();
 
-
   useEffect(() => {
-
-    setSecondState(true)
-   
     fetchData();
   }, []);
 
@@ -69,7 +65,10 @@ const SingleOrderMapArea = () => {
           console.log(acc.data);
 
           if (acc.data.order_status <= 4) {
-            setInitialStatus(false);
+            setInitialStatus(true); // You need to change this
+          }
+          if (acc.data.order_status == 5) {
+            setSecondState(true); // You need to change this
           }
 
           setOldStatus(acc.data.order_status);
@@ -154,7 +153,7 @@ const SingleOrderMapArea = () => {
         .post(
           BACKEND_URL + 'updateorder',
           {
-            old_status: route.params.status,
+            old_status: oldStatus,
             orderid: route.params.id,
             new_status: '8',
           },
@@ -179,16 +178,40 @@ const SingleOrderMapArea = () => {
     }
   };
 
+  const handleYesReceived = () => {
+    console.log('yes received');
 
+    console.log(`old status is ` + route.params.status);
+    console.log(`Order id is ` + route.params.id);
 
-
-
-  const handleYesReceived = () =>{
-
-
-
-    
-  }
+    try {
+      axios
+        .post(
+          BACKEND_URL + 'updateorder',
+          {
+            old_status: '5',
+            orderid: route.params.id,
+            new_status: '6',
+          },
+          {
+            headers: {
+              authkey: AuthKey,
+              secretkey: AuthPassword,
+            },
+          },
+        )
+        .then(acc => {
+          console.log(acc.data);
+          setSecondState(false);
+          fetchData();
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <ImageBackground
@@ -339,7 +362,7 @@ const SingleOrderMapArea = () => {
             borderRadius: 15,
             elevation: 100,
             height: '100%',
-            width:"100%"
+            width: '100%',
           }}>
           <View style={{marginTop: 100}}>
             <Image
@@ -350,29 +373,21 @@ const SingleOrderMapArea = () => {
             <Text style={{alignSelf: 'center', color: 'black', fontSize: 25}}>
               This Order Is Under Cooking
             </Text>
-            <Text style={{textAlign: 'center', marginTop: 10}}>
+            <Text
+              style={{textAlign: 'center', marginTop: 10, color: '#666666'}}>
               please come again after few times
             </Text>
-            <View style={{marginTop:30}}>
-              <TouchableOpacity onPress={()=>navigation.goBack()}>
-            <Text style={styles.button2}>Go Back</Text>
+            <View style={{marginTop: 30}}>
+              <TouchableOpacity onPress={() => navigation.goBack()}>
+                <Text style={styles.button2}>Go Back</Text>
               </TouchableOpacity>
             </View>
           </View>
         </View>
       </Modal>
 
-
-
-
-
-
-
-
       <Modal animationType="slide" transparent={true} visible={secondState}>
-
-
-      <View
+        <View
           style={{
             backgroundColor: 'white',
             marginTop: 180,
@@ -390,12 +405,11 @@ const SingleOrderMapArea = () => {
             }}>
             Have You Received The Order ?
           </Text>
-        
-
+            
           <View
             style={{flexDirection: 'row', marginHorizontal: 30, marginTop: 10}}>
             <Text
-              onPress={() =>navigation.goBack()}
+              onPress={() => navigation.goBack()}
               style={{
                 color: 'white',
                 textAlign: 'right',
@@ -424,27 +438,7 @@ const SingleOrderMapArea = () => {
             </Text>
           </View>
         </View>
-       
-
-
-
-
       </Modal>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
       <View style={{flex: 1}}></View>
 
